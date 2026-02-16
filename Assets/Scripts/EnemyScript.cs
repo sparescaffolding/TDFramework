@@ -8,11 +8,13 @@ public class EnemyScript : MonoBehaviour
     public Vector3 v;
     public float health = 2f;
     public float speed;
+    public int cashToGive = 5;
+    private Manager man;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        man = FindFirstObjectByType<Manager>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,7 @@ public class EnemyScript : MonoBehaviour
         //if health 0 then die
         if (health <= 0f)
         {
+            man.AddCash(cashToGive);
             Destroy(gameObject);
         }
     }

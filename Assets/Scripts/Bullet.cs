@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
 {
     private Transform target;
 
+    public float damage = 2f;
+    
     public float speed = 10f;
     
     private Vector3 moveDirection;
@@ -28,7 +30,8 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+            EnemyScript b = other.GetComponent<EnemyScript>();
+            b.TakeDamage(damage);
             Destroy(gameObject);
         }
     }

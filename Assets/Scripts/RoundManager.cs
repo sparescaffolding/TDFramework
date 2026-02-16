@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,14 @@ public class RoundManager : MonoBehaviour
     // fields
     public List<GameObject> enemies = new List<GameObject>();
     public float cooldown = 0.5f;
+    public GameObject startButton;
     
-    // Start is called before the first frame update
-    void Start()
+    public void StartRound()
     {
         //start round immediately
         //to implement: dedicated round start button
         InvokeRepeating(nameof(SpawnEnemies), 0f, cooldown);
+        startButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,6 +37,14 @@ public class RoundManager : MonoBehaviour
                 // stop spawning when list is empty
                 CancelInvoke(nameof(SpawnEnemies));
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (enemies.Count <= 0)
+        {
+            startButton.SetActive(true);
         }
     }
 }

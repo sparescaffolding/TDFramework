@@ -13,6 +13,15 @@ public class TowerBrain : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform firePoint;
     private float cooldown = 0f;
+    public int cost = 20;
+    public Manager man;
+
+
+    private void Start()
+    {
+        man = FindFirstObjectByType<Manager>();
+        man.Deduct(cost);
+    }
 
     private void FixedUpdate()
     {
@@ -48,6 +57,11 @@ public class TowerBrain : MonoBehaviour
     
     private void Update()
     {
+        if (target == null)
+        {
+            return;
+        }
+        
         Vector3 direction = target.position - transform.position;
         direction.y = 0f;
 

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2599337991442793332}
   - component: {fileID: 8097549148848458071}
   m_Layer: 0
-  m_Name: EnemyOne
+  m_Name: EnemyTwo
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 29dbcb63660cef64288cbf147c54619f, type: 2}
+  - {fileID: 2100000, guid: de9964194e4e3c442a3a72694e41c9a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   v: {x: 1, y: 0, z: 0}
-  health: 2
+  health: 4
   speed: 2
-  cashToGive: 2
+  cashToGive: 4
 --- !u!54 &8097549148848458071
 Rigidbody:
   m_ObjectHideFlags: 0
