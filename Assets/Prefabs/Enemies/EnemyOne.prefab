@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8097549148848458071}
   m_Layer: 0
   m_Name: EnemyOne
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6051d0f97f06bfd478c78c780faabf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  v: {x: 4, y: 0, z: 0}
-  speed: 6
+  v: {x: 1, y: 0, z: 0}
+  speed: 0.2
 --- !u!54 &8097549148848458071
 Rigidbody:
   m_ObjectHideFlags: 0

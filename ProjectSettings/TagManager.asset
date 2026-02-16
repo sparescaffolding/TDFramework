@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Reflector
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - CanPlace
   - Water
   - UI
   - 
