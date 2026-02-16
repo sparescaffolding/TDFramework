@@ -20,7 +20,10 @@ public class TowerBrain : MonoBehaviour
     private void Start()
     {
         man = FindFirstObjectByType<Manager>();
-        man.Deduct(cost);
+        if (man.cash >= cost)
+        {
+            man.Deduct(cost);
+        }
     }
 
     private void FixedUpdate()
