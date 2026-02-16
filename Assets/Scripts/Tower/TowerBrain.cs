@@ -7,7 +7,12 @@ using UnityEngine.VFX;
 public class TowerBrain : MonoBehaviour
 {
     public Transform target;
-    public float range = 15f;
+    public float detectRange = 15f;
+    public float fireRate = 1f;
+    public bool shooting;
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    private float cooldown = 0f;
 
     private void FixedUpdate()
     {
@@ -29,9 +34,15 @@ public class TowerBrain : MonoBehaviour
             }
         }
 
-        if (nearestenemy != null && shortestDistance <= range)
+        if (nearestenemy != null && shortestDistance <= detectRange)
         {
             target = nearestenemy.transform;
+            shooting = true;
+        }
+        else
+        {
+            target = null;
+            shooting = false;
         }
     }
     
@@ -41,11 +52,29 @@ public class TowerBrain : MonoBehaviour
         direction.y = 0f;
 
         transform.rotation = Quaternion.LookRotation(direction);
+        //shoot logic
+        if (cooldown <= 0f)
+        {
+            Shoot();
+            cooldown = 1f / fireRate;
+        }
+        
+        cooldown -= Time.deltaTime;
+    }
+
+    private void Shoot()
+    {
+        Debug.Log("shooting...");
+        GameObject projectile = (GameObject)Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        Bullet b = projectile.GetComponent<Bullet>();
+        
+        if(projectile != null)
+            b.Seek(target);
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(transform.position, detectRange);
         Gizmos.color = Color.blue;
     }
 }
