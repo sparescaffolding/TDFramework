@@ -11,6 +11,7 @@ public class EnemyScript : MonoBehaviour
     public int cashToGive = 5;
     public int damage = 5;
     private Manager man;
+    private bool lastEnemy = false;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,11 @@ public class EnemyScript : MonoBehaviour
         if (health <= 0f)
         {
             man.AddCash(cashToGive);
+            if (lastEnemy)
+            {
+                man.RoundEnded();
+                man.startButton.SetActive(true);
+            }
             Destroy(gameObject);
         }
     }
@@ -43,6 +49,12 @@ public class EnemyScript : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        //deduct health
         health -= damage;
+    }
+
+    public void EnableStartButton()
+    {
+        lastEnemy = true;
     }
 }

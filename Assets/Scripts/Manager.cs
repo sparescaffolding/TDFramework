@@ -10,6 +10,13 @@ public class Manager : MonoBehaviour
     public TextMeshProUGUI cashText;
     public int health = 100;
     public TextMeshProUGUI healthText;
+    public GameObject startButton;
+    public RoundManager roundManager;
+
+    private void Start()
+    {
+        roundManager = FindFirstObjectByType<RoundManager>();
+    }
 
     private void Update()
     {
@@ -51,5 +58,11 @@ public class Manager : MonoBehaviour
     {
         //add cash by amount specified
         health += amount;
+    }
+
+    public void RoundEnded()
+    {
+        AddCash(roundManager.rounds[0].moneyToGive);
+        roundManager.rounds.RemoveAt(0);
     }
 }

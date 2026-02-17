@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class MouseWorldPos : MonoBehaviour
 {
@@ -18,9 +17,8 @@ public class MouseWorldPos : MonoBehaviour
         Ray ray = camera.ScreenPointToRay(mouseScreenPosition);
 
         //if mouse is over 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, placeLayer, !EventSystem.IsPointerOverGameObject()))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, placeLayer))
         {
-            //set position to where mouse is
             CanPlace = true;
             transform.position = hit.point;
         }
