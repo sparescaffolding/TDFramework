@@ -9,6 +9,7 @@ public class EnemyScript : MonoBehaviour
     public float health = 2f;
     public float speed;
     public int cashToGive = 5;
+    public int damage = 5;
     private Manager man;
     
     // Start is called before the first frame update

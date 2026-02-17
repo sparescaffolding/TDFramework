@@ -19,6 +19,7 @@ public class Reflector : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        //draw in inspector the reflection direction of the reflector object
         Gizmos.color = Color.blue; 
         Vector3 start = transform.position;                  
         Vector3 end = transform.position + transform.forward * 2f; 
