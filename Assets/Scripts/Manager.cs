@@ -11,11 +11,20 @@ public class Manager : MonoBehaviour
     public int health = 100;
     public TextMeshProUGUI healthText;
     public GameObject startButton;
+    public GameObject speedButton;
     public RoundManager roundManager;
+    private PlaceTower pctower;
+    private MouseWorldPos player;
+    public GameObject towerList;
+    public bool TwoTimesSpeed = false;
 
     private void Start()
     {
         roundManager = FindFirstObjectByType<RoundManager>();
+        pctower = FindFirstObjectByType<PlaceTower>();
+        player = FindFirstObjectByType<MouseWorldPos>();
+        
+        Time.timeScale = 1;
     }
 
     private void Update()
@@ -23,6 +32,15 @@ public class Manager : MonoBehaviour
         // constantly update UI text to show current cash and health
         cashText.text = "Cash: " + cash;
         healthText.text = "Health: " + health;
+
+        if (!TwoTimesSpeed)
+        {
+            Time.timeScale = 1;
+        }
+        else
+        {
+            Time.timeScale = 2;
+        }
     }
 
     public void Deduct(int amount)
@@ -62,7 +80,21 @@ public class Manager : MonoBehaviour
 
     public void RoundEnded()
     {
+        startButton.SetActive(true);
+        speedButton.SetActive(false);
         AddCash(roundManager.rounds[0].moneyToGive);
         roundManager.rounds.RemoveAt(0);
+    }
+
+    public void ToggleSpeed()
+    {
+        TwoTimesSpeed = !TwoTimesSpeed;
+    }
+
+    public void StopPlacing()
+    {
+        towerList.SetActive(true);
+        player.CanPlace = false;
+        pctower.place = false;
     }
 }

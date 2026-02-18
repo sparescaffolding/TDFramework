@@ -11,9 +11,10 @@ public class RoundManager : MonoBehaviour
     public float cooldown = 0.5f;
     public Manager man;
     public GameObject startButton;
+    public GameObject speedButton;
     private bool roundActive = false;
 
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class RoundManager : MonoBehaviour
         // start round immediately
         InvokeRepeating(nameof(SpawnEnemies), 0f, cooldown);
         startButton.SetActive(false);
+        speedButton.SetActive(true);
         roundActive = true;
     }
 
@@ -48,7 +50,7 @@ public class RoundManager : MonoBehaviour
         // remove enemy from list that was just spawned
         enemies.RemoveAt(0);
 
-        if (enemies.Count == 1)
+        if (spawnedEnemies.Count == 1)
         {
             EnemyScript b = enemies[0].gameObject.GetComponent<EnemyScript>();
             b.EnableStartButton();

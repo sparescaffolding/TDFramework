@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7899403793831067823}
   - component: {fileID: 2599337991442793332}
   - component: {fileID: 8097549148848458071}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyTwo
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -99,13 +99,13 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.4
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2599337991442793332
 MonoBehaviour:
@@ -124,6 +124,10 @@ MonoBehaviour:
   speed: 4
   cashToGive: 4
   damage: 5
+  spawnOnDeath:
+  - {fileID: 6387704002767890149, guid: 2ddeb96ef5500754b90660ad59fad95a, type: 3}
+  - {fileID: 6387704002767890149, guid: 2ddeb96ef5500754b90660ad59fad95a, type: 3}
+  isChild: 0
 --- !u!54 &8097549148848458071
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -143,11 +147,11 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0

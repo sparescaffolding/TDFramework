@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
@@ -10,13 +11,22 @@ public class EnemyScript : MonoBehaviour
     public float speed;
     public int cashToGive = 5;
     public int damage = 5;
+    public List<GameObject> spawnOnDeath =  new List<GameObject>();
     private Manager man;
+    private RoundManager roundManager;
     private bool lastEnemy = false;
+    public bool isChild;
     
     // Start is called before the first frame update
     void Start()
     {
         man = FindFirstObjectByType<Manager>();
+        roundManager = FindObjectOfType<RoundManager>();
+        
+        if(isChild)
+        {
+            roundManager.spawnedEnemies.Add(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -33,6 +43,30 @@ public class EnemyScript : MonoBehaviour
                 man.RoundEnded();
                 man.startButton.SetActive(true);
             }
+
+            float spacing = 1.05f;
+            int index = 0;
+
+            if (spawnOnDeath.Count > 0)
+            {
+                foreach (GameObject e in spawnOnDeath)
+                {
+                    Vector3 offset = -v.normalized * index * spacing;
+                    //new enemy to spawn
+                    GameObject n = Instantiate(e, transform.position + offset, transform.rotation);
+
+                    EnemyScript script = n.GetComponent<EnemyScript>();
+                    if (script != null)
+                    {
+                        //have same vector3 values as me
+                        script.v = this.v;
+                    }
+
+                    index++;
+                }
+            }
+
+            spawnOnDeath.Clear();
             Destroy(gameObject);
         }
     }

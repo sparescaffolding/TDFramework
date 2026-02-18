@@ -23,7 +23,11 @@ public class TowerBrain : MonoBehaviour
         {
             //deduct cash using manager on placement
             man.Deduct(cost);
+            man.StopPlacing();
+            man.towerList.SetActive(true);
         }
+        
+        man.StopPlacing();
     }
 
     private void FixedUpdate()

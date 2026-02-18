@@ -134,5 +134,5 @@ MonoBehaviour:
   shooting: 0
   projectilePrefab: {fileID: 1306519332126672257, guid: 4cff1ebdada02b24db6d26fb30ceb0bf, type: 3}
   firePoint: {fileID: 101634714764044734}
-  cost: 20
+  cost: 150
   man: {fileID: 0}
