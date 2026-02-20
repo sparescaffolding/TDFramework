@@ -31,7 +31,6 @@ public class PlaceTower : MonoBehaviour
 
                 man.Deduct(b.cost);
                 man.StopPlacing();
-
                 place = false;
             }
             else

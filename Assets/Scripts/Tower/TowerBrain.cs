@@ -2,23 +2,36 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class TowerBrain : MonoBehaviour
 {
+    public string name = "Tower";
     public Transform target;
     public float detectRange = 15f;
     public float fireRate = 1f;
-    public bool shooting;
     public GameObject projectilePrefab;
     public Transform firePoint;
+    [Range(0, 3)] public int TopPathTier;
+    public List<TowerUpgradeData> TopPathData = new List<TowerUpgradeData>();
+    [Range(0, 3)] public int MiddlePathTier;
+    public List<TowerUpgradeData> MiddlePathData = new List<TowerUpgradeData>();
+    [Range(0, 3)] public int BottomPathTier;
+    public List<TowerUpgradeData> BottomPathData = new List<TowerUpgradeData>();
+    public int CrossPathLimit = 1;
     private float cooldown = 0f;
     public int cost = 20;
     public Manager man;
-
+    public int value;
+    public bool isPlaced = false;
+    
     private void Start()
     {
         man = FindFirstObjectByType<Manager>();
+
+        value = (cost * 70) / 100;
+        
+        isPlaced = true;
+        
         if (man.cash >= cost)
         {
             //deduct cash using manager on placement
@@ -26,16 +39,12 @@ public class TowerBrain : MonoBehaviour
             man.StopPlacing();
             man.towerList.SetActive(true);
         }
-        
-        man.StopPlacing();
     }
-
     private void FixedUpdate()
     {
         //update info on targets every frame, probably the most unoptimized way
         UpdateTarget();
     }
-
     void UpdateTarget()
     {
         //get list of all enemies that exist
@@ -55,15 +64,12 @@ public class TowerBrain : MonoBehaviour
         if (nearestenemy != null && shortestDistance <= detectRange)
         {
             target = nearestenemy.transform;
-            shooting = true;
         }
         else
         {
             target = null;
-            shooting = false;
         }
     }
-    
     private void Update()
     {
         //if there is no target
@@ -91,7 +97,6 @@ public class TowerBrain : MonoBehaviour
         
         cooldown -= Time.deltaTime;
     }
-
     private void Shoot()
     {
         Debug.Log("tower " + gameObject.name + " is shooting...");
@@ -102,11 +107,55 @@ public class TowerBrain : MonoBehaviour
         //if projectile spawned, call seek function in projectile bullet script
         b.Seek(target);
     }
-
     private void OnDrawGizmosSelected()
     {
         //render range sphere in scene editor
         Gizmos.DrawWireSphere(transform.position, detectRange);
         Gizmos.color = Color.blue;
+    }
+    private void ApplyUpgrade(TowerUpgradeData data)
+    {
+        if (man.cash >= data.cost)
+        {
+            man.Deduct(data.cost);
+            detectRange += data.newDetectRange;
+            fireRate += data.newFireRate;
+            if (data.newProjectilePrefab != null)
+            {
+                projectilePrefab = data.newProjectilePrefab;
+            }
+        }
+        else
+        {
+            Debug.Log("Poor");
+            return;
+        }
+    }
+    public void UpgradeTopPath()
+    {
+        if (TopPathTier < 3)
+        {
+            ApplyUpgrade(TopPathData[TopPathTier]);
+            man.CrossPathManager();
+            TopPathTier++;
+        }
+    }
+    public void UpgradeMiddlePath()
+    {
+        if (MiddlePathTier < 3)
+        {
+            ApplyUpgrade(MiddlePathData[MiddlePathTier]);
+            man.CrossPathManager();
+            MiddlePathTier++;
+        }
+    }
+    public void UpgradeBottomPath()
+    {
+        if (BottomPathTier < 3)
+        {
+            ApplyUpgrade(BottomPathData[BottomPathTier]);
+            man.CrossPathManager();
+            BottomPathTier++;
+        }
     }
 }

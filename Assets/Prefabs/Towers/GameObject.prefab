@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 101634714764044734}
   - component: {fileID: 4134527605081129088}
   - component: {fileID: 4028878427161258703}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6650517608126301834}
   - component: {fileID: 4048827765111312652}
-  m_Layer: 0
+  - component: {fileID: 9062120379392561726}
+  m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,11 +129,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb61aaf515c5cac47adbf5c554fc5dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Tower123
   target: {fileID: 0}
   detectRange: 4
   fireRate: 2
-  shooting: 0
   projectilePrefab: {fileID: 1306519332126672257, guid: 4cff1ebdada02b24db6d26fb30ceb0bf, type: 3}
   firePoint: {fileID: 101634714764044734}
+  TopPathTier: 0
+  TopPathData:
+  - {fileID: 11400000, guid: 57e1f8cc5f7cbd64da8bd2ff362b3ea7, type: 2}
+  - {fileID: 11400000, guid: e40934b00a0281948b86d58fbed5da19, type: 2}
+  - {fileID: 11400000, guid: e40934b00a0281948b86d58fbed5da19, type: 2}
+  MiddlePathTier: 0
+  MiddlePathData:
+  - {fileID: 11400000, guid: 57e1f8cc5f7cbd64da8bd2ff362b3ea7, type: 2}
+  - {fileID: 11400000, guid: e40934b00a0281948b86d58fbed5da19, type: 2}
+  - {fileID: 11400000, guid: e40934b00a0281948b86d58fbed5da19, type: 2}
+  BottomPathTier: 0
+  BottomPathData:
+  - {fileID: 11400000, guid: 57e1f8cc5f7cbd64da8bd2ff362b3ea7, type: 2}
+  - {fileID: 11400000, guid: e40934b00a0281948b86d58fbed5da19, type: 2}
+  - {fileID: 11400000, guid: e40934b00a0281948b86d58fbed5da19, type: 2}
+  CrossPathLimit: 1
   cost: 150
   man: {fileID: 0}
+  value: 0
+  isPlaced: 0
+--- !u!65 &9062120379392561726
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733281389383521619}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
