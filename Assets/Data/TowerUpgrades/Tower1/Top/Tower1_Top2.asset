@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df488e40b274b79a474799f13abfb52, type: 3}
   m_Name: Tower1_Top2
   m_EditorClassIdentifier: 
+  name: tier 2 upgrade
   cost: 15
+  icon: {fileID: 0}
+  newPortrait: {fileID: 0}
   newDetectRange: 4
   newFireRate: 1
   newProjectilePrefab: {fileID: 0}

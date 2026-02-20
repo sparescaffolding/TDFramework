@@ -43,6 +43,9 @@ public class SelectTowerObject : MonoBehaviour
         if (selectedTower != null)
         {
             selectedTower.UpgradeTopPath();
+            man.UpgradeTopInfo();
+            man.UpdatePortrait();
+            man.CrossPathManager();
         }
     }
     public void UpgradeMiddlePath()
@@ -50,6 +53,9 @@ public class SelectTowerObject : MonoBehaviour
         if (selectedTower != null)
         {
             selectedTower.UpgradeMiddlePath();
+            man.UpgradeMiddleInfo();
+            man.UpdatePortrait();
+            man.CrossPathManager();
         }
     }
     public void UpgradeBottomPath()
@@ -57,6 +63,15 @@ public class SelectTowerObject : MonoBehaviour
         if (selectedTower != null)
         {
             selectedTower.UpgradeBottomPath();
+            man.UpgradeBottomInfo();
+            man.UpdatePortrait();
+            man.CrossPathManager();
         }
+    }
+    public void SellTower()
+    {
+        man.AddCash(selectedTower.value);
+        man.ExitUpgradePanel();
+        Destroy(selectedTower.gameObject);
     }
 }

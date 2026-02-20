@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class TowerBrain : MonoBehaviour
 {
     public string name = "Tower";
+    public Texture portrait;
     public Transform target;
     public float detectRange = 15f;
     public float fireRate = 1f;
@@ -131,12 +133,14 @@ public class TowerBrain : MonoBehaviour
             return;
         }
     }
+    
     public void UpgradeTopPath()
     {
         if (TopPathTier < 3)
         {
             ApplyUpgrade(TopPathData[TopPathTier]);
-            man.CrossPathManager();
+            value += (TopPathData[TopPathTier].cost * 70) / 100;
+            man.RefreshTowerValue();
             TopPathTier++;
         }
     }
@@ -145,7 +149,8 @@ public class TowerBrain : MonoBehaviour
         if (MiddlePathTier < 3)
         {
             ApplyUpgrade(MiddlePathData[MiddlePathTier]);
-            man.CrossPathManager();
+            value += (MiddlePathData[MiddlePathTier].cost * 70) / 100;
+            man.RefreshTowerValue();
             MiddlePathTier++;
         }
     }
@@ -154,7 +159,8 @@ public class TowerBrain : MonoBehaviour
         if (BottomPathTier < 3)
         {
             ApplyUpgrade(BottomPathData[BottomPathTier]);
-            man.CrossPathManager();
+            value += (BottomPathData[BottomPathTier].cost * 70) / 100;
+            man.RefreshTowerValue();
             BottomPathTier++;
         }
     }

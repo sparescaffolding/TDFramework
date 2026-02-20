@@ -7,6 +7,8 @@ public class TowerUpgradeData : ScriptableObject
 {
     public string name;
     public int cost;
+    public Texture icon;
+    public Texture newPortrait;
     public float newDetectRange;
     public float newFireRate;
     public GameObject newProjectilePrefab;

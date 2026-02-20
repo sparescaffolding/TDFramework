@@ -25,7 +25,24 @@ public class Manager : MonoBehaviour
     public GameObject exitUpgradeButton;
     public TextMeshProUGUI towerSellValueText;
     public TextMeshProUGUI towerName;
+    public RawImage towerPortrait;
     public SelectTowerObject selectedTowerObject;
+    [Header("UpgradeButtonTop")]
+    public TextMeshProUGUI upgradeButtonNameTop;
+    public TextMeshProUGUI upgradeButtonCostTop;
+    public RawImage upgradeButtonIconTop;
+    public Button upgradeButtonTop;
+    [Header("UpgradeButtonMiddle")]
+    public TextMeshProUGUI upgradeButtonNameMiddle;
+    public TextMeshProUGUI upgradeButtonCostMiddle;
+    public RawImage upgradeButtonIconMiddle;
+    public Button upgradeButtonMiddle;
+    [Header("UpgradeButtonBottom")]
+    public TextMeshProUGUI upgradeButtonNameBottom;
+    public TextMeshProUGUI upgradeButtonCostBottom;
+    public RawImage upgradeButtonIconBottom;
+    public Button upgradeButtonBottom;
+    
 
     private void Start()
     {
@@ -104,9 +121,14 @@ public class Manager : MonoBehaviour
     }
     public void UpgradePanel()
     {
-        towerSellValueText.text = "$" + selectedTowerObject.selectedTower.value;
+        RefreshTowerValue();
         towerName.text = selectedTowerObject.selectedTower.name;
         upgradePanel.SetActive(true);
+        UpdatePortrait();
+        UpgradeTopInfo();
+        UpgradeMiddleInfo();
+        UpgradeBottomInfo();
+        CrossPathManager();
         towerList.SetActive(false);
         exitUpgradeButton.SetActive(true);
     }
@@ -116,11 +138,97 @@ public class Manager : MonoBehaviour
         towerList.SetActive(true);
         exitUpgradeButton.SetActive(false);
     }
+
+    public void RefreshTowerValue()
+    {
+        towerSellValueText.text = "$" + selectedTowerObject.selectedTower.value;
+    }
     public void CrossPathManager()
     {
-        if (selectedTowerObject.selectedTower.TopPathTier >= 2 && selectedTowerObject.selectedTower.MiddlePathTier != 0 || selectedTowerObject.selectedTower.BottomPathTier != 0)
+        //top cross 2
+        if (selectedTowerObject.selectedTower.TopPathTier == 0 && selectedTowerObject.selectedTower.MiddlePathTier == 0 && selectedTowerObject.selectedTower.BottomPathTier == 0)
         {
-            Debug.Log("T2 M0 B0");
+            upgradeButtonTop.interactable = true;
+            upgradeButtonMiddle.interactable = true;
+            upgradeButtonBottom.interactable = true;
         }
+        if (selectedTowerObject.selectedTower.TopPathTier >= 2 && selectedTowerObject.selectedTower.BottomPathTier == 1)
+        {
+            upgradeButtonMiddle.interactable = false;
+        }
+        if (selectedTowerObject.selectedTower.TopPathTier >= 2 && selectedTowerObject.selectedTower.MiddlePathTier == 1)
+        {
+            upgradeButtonBottom.interactable = false;
+        }
+        //middle cross 2
+        if (selectedTowerObject.selectedTower.MiddlePathTier >= 2 && selectedTowerObject.selectedTower.BottomPathTier == 1)
+        {
+            upgradeButtonTop.interactable = false;
+        }
+        if (selectedTowerObject.selectedTower.MiddlePathTier >= 2 && selectedTowerObject.selectedTower.TopPathTier == 1)
+        {
+            upgradeButtonBottom.interactable = false;
+        }
+        //bottom cross 2
+        if (selectedTowerObject.selectedTower.BottomPathTier >= 2 && selectedTowerObject.selectedTower.TopPathTier == 1)
+        {
+            upgradeButtonMiddle.interactable = false;
+        }
+        if (selectedTowerObject.selectedTower.BottomPathTier >= 2 && selectedTowerObject.selectedTower.MiddlePathTier == 1)
+        {
+            upgradeButtonTop.interactable = false;
+        }
+    }
+    public void UpdatePortrait()
+    {
+        if (selectedTowerObject.selectedTower.TopPathTier > selectedTowerObject.selectedTower.BottomPathTier && selectedTowerObject.selectedTower.TopPathTier > selectedTowerObject.selectedTower.MiddlePathTier)
+        {
+            towerPortrait.texture = selectedTowerObject.selectedTower.TopPathData[selectedTowerObject.selectedTower.TopPathTier].newPortrait;
+        }
+        if (selectedTowerObject.selectedTower.MiddlePathTier > selectedTowerObject.selectedTower.BottomPathTier && selectedTowerObject.selectedTower.MiddlePathTier > selectedTowerObject.selectedTower.TopPathTier)
+        {
+            towerPortrait.texture = selectedTowerObject.selectedTower.MiddlePathData[selectedTowerObject.selectedTower.MiddlePathTier].newPortrait;
+        }
+        if (selectedTowerObject.selectedTower.BottomPathTier > selectedTowerObject.selectedTower.TopPathTier && selectedTowerObject.selectedTower.BottomPathTier > selectedTowerObject.selectedTower.MiddlePathTier)
+        {
+            towerPortrait.texture = selectedTowerObject.selectedTower.BottomPathData[selectedTowerObject.selectedTower.BottomPathTier].newPortrait;
+        }
+    }
+    //UPGRADE BUTTON UI MANAGEMENT
+    public void UpgradeTopInfo()
+    {
+        //name
+        upgradeButtonNameTop.text = selectedTowerObject.selectedTower
+            .TopPathData[selectedTowerObject.selectedTower.TopPathTier].name;
+        //cost
+        upgradeButtonCostTop.text = "$" + selectedTowerObject.selectedTower
+            .TopPathData[selectedTowerObject.selectedTower.TopPathTier].cost;
+        //icon
+        upgradeButtonIconTop.texture = selectedTowerObject.selectedTower
+            .TopPathData[selectedTowerObject.selectedTower.TopPathTier].icon;
+    }
+    public void UpgradeMiddleInfo()
+    {
+        //name
+        upgradeButtonNameMiddle.text = selectedTowerObject.selectedTower
+            .MiddlePathData[selectedTowerObject.selectedTower.MiddlePathTier].name;
+        //cost
+        upgradeButtonCostMiddle.text = "$" + selectedTowerObject.selectedTower
+            .MiddlePathData[selectedTowerObject.selectedTower.MiddlePathTier].cost;
+        //icon
+        upgradeButtonIconMiddle.texture = selectedTowerObject.selectedTower
+            .MiddlePathData[selectedTowerObject.selectedTower.MiddlePathTier].icon;
+    }
+    public void UpgradeBottomInfo()
+    {
+        //name
+        upgradeButtonNameBottom.text = selectedTowerObject.selectedTower
+            .BottomPathData[selectedTowerObject.selectedTower.BottomPathTier].name;
+        //cost
+        upgradeButtonCostBottom.text = "$" + selectedTowerObject.selectedTower
+            .BottomPathData[selectedTowerObject.selectedTower.BottomPathTier].cost;
+        //icon
+        upgradeButtonIconBottom.texture = selectedTowerObject.selectedTower
+            .BottomPathData[selectedTowerObject.selectedTower.BottomPathTier].icon;
     }
 }
